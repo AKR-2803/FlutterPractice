@@ -25,3 +25,4 @@ VSCode useful shortcuts :
 ## [Ctrl + J Ctrl + L] : Join line(s) of code (select the text) : (change it in keyboard shortcuts : editor.action.joinLines) 
 ## [Ctrl + P] : Open File quickly
 ## [Ctrl + L] : Select current Line
+## ** [Ctrl + <space>] : View possible paramters
