@@ -1,16 +1,15 @@
-# practice_one_register
+# Navigation
 
-A new Flutter project.
+## Navigator_Basic
+Basic navigation from home to second page and back to home, using Navigator.push() and Navigator.pop()
 
-## Getting Started
+## Home page
+<p align="center">
+  <img src="https://github.com/AKR-2803/FlutterPractice/blob/day4/screenshots/home_page.jpg" width="250" title="hover text">
+</p>
 
-This project is a starting point for a Flutter application.
+## Second page
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<p align="center">
+  <img src="https://github.com/AKR-2803/FlutterPractice/blob/day4/screenshots/second_route.jpg" width="250" title="hover text">
+</p>
