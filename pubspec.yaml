@@ -18,7 +18,7 @@ publish_to: "none" # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-    sdk: ">=2.7.0 <3.0.0"
+    sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
     flutter:
@@ -30,6 +30,7 @@ dependencies:
     google_fonts: 2.2.0
     font_awesome_flutter: ^10.3.0
     hexcolor: ^2.0.5
+    intl: ^0.18.0
 
 dev_dependencies:
     flutter_test:
@@ -50,6 +51,8 @@ flutter:
         # - images/login_mobile.svg
         # - images/forgot_pwd.svg
         - assets/
+        - assets/fonts/
+        - assets/files/
 
     #   - images/a_dot_ham.jpeg
 
@@ -64,10 +67,10 @@ flutter:
     # "family" key with the font family name, and a "fonts" key with a
     # list giving the asset and other descriptors for the font. For
     # example:
-    # fonts:
-    #   - family: Schyler
-    #     fonts:
-    #       - asset: fonts/Schyler-Regular.ttf
+    fonts:
+        - family: Questrial
+          fonts:
+              - asset: assets/fonts/Questrial-Regular.ttf
     #       - asset: fonts/Schyler-Italic.ttf
     #         style: italic
     #   - family: Trajan Pro

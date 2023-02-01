@@ -1,194 +1,278 @@
 //Login Page created on 20-01-2023
+//abcdefghikjklmnioppqtrstuvwxuyzz
+//avabcdefghijklmnopqtrstuvwxuyz
+//avabcdefghoijklmnopqrstucvwxyz
+//avabcddefghijkllmnopqtrstuvwxyz
+//avabcdrefghijklmnopqrstucvwxyz
+//abccdefghijklmnopqrstuvwxuuyz
+//abcdefghijklmnolpqrdsrtuvwxyz
+//abcdfdefghikjklmnopqrstuvwxyz
+//abcdefghijklmnopqrstuvwxyz
+//abcdefghijklmnopqrstuvwxzyz
+//abcdefghijklmnopqrstuvwxzyz
+//abcdefghijklmnopqrstuvwxyz
+//abcdefghjijklmnopqurstuvwxyz
+//abcdefghijklm,mnopqrstuxvwxyz
+//abcdefghijklmnopqrstucwvwsxyaz
+//abcdefghijklmnopqrstucvwxy;az
+//abcdefghijklmnopqrst uvwxyz
+
+//C:\21.2  D:\590
+
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:google_fonts/google_fonts.dart'; //google fonts package
-import 'package:font_awesome_flutter/font_awesome_flutter.dart'; //fontawesome package
-import 'package:hexcolor/hexcolor.dart'; //hexColor package
+import 'package:practice_one/widgets/item_widget.dart';
+import 'package:flutter/services.dart';
+import 'models/catalog.dart';
 
-void main() => {runApp(MyApp())};
+void main() {
+  runApp(MyApp());
+}
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  void initState() {
+    super.initState();
+    loadData();
+  }
+
+  loadData() async {
+    await Future.delayed(Duration(seconds: 2));
+    // We cant diretly load the object from JSON file in the object format
+    //Hence we need to convert it to string and then again convert it back to object format
+    /*
+    ///be aware that the value of [catalogJSON] is of type "Future" hence it has to be used inside an async await function in order to wait for the future value to be loaded, otherwise this error will occur : 
+  
+    The argument type 'Future<String>' can't be assigned to the parameter type 'String'.
+    */
+    var catalogJson = await rootBundle.loadString('assets/files/catalog.json');
+    // print(catalogJson);
+    var decodedData = jsonDecode(catalogJson);
+    var productData = decodedData["products"];
+
+    CatalogModel.items =
+        List.from(productData).map<Item>((item) => Item.fromMap(item)).toList();
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "LoginPageApp",
-      theme: ThemeData.light().copyWith(
-        textTheme: GoogleFonts.latoTextTheme(
-          Theme.of(context).textTheme,
-        ),
-      ),
       home: Scaffold(
-        //uncomment to see AppBar
-        // appBar: AppBar(
-        //   centerTitle: true,
-        //   title: Text(
-        //     "Fun App",
-        //     style: GoogleFonts.lato(
-        //       textStyle: TextStyle(color: Colors.white, fontSize: 25),
-        //     ),
-        //   ),
-        //   backgroundColor: Colors.deepPurpleAccent,
-        // ),
+          appBar: AppBar(
+              title: Text(
+            "CatalogApp",
+            style: TextStyle(fontWeight: FontWeight.w800, color: Colors.white),
+          )),
+          body: (CatalogModel.items != null && CatalogModel.items.isNotEmpty)
+              ? ListView.builder(
+                  itemCount: CatalogModel.items.length,
+                  itemBuilder: (context, index) {
+                    return ItemWidget(CatalogModel.items[index]);
+                  },
+                )
+              : Center(
+                  child: CircularProgressIndicator(),
+                )),
+    );
+  }
+}
 
-        //body
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              Container(
-                height: 300,
-                padding: EdgeInsets.all(35),
-                alignment: Alignment.center,
-                color: Colors.deepPurple,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Welcome Back!",
-                      //custom fonts (using googlefonts package)
-                      style: GoogleFonts.lato(
-                        textStyle: TextStyle(
-                            color: Colors.white,
-                            fontSize: 30,
-                            fontWeight: FontWeight.w700),
-                      ),
-                    ),
-                    Text(
-                      "Please Login to Continue",
-                      style: GoogleFonts.lato(
-                        textStyle: TextStyle(
-                            color: Colors.white,
-                            fontSize: 25,
-                            fontWeight: FontWeight.w700),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                child: Padding(
-                  padding: const EdgeInsets.all(35.0),
-                  child: Container(
-                    child: Column(
-                      children: [
-                        TextFormField(
-                          decoration: InputDecoration(
-                            hintText: "Email or Phone Number",
-                            border: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                width: 5,
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: 30),
-                        TextFormField(
-                          obscureText: true,
-                          decoration: InputDecoration(
-                            hintText: "Password",
-                            fillColor: Colors.pinkAccent,
-                            border: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                width: 5,
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: 8),
-                        //sample image from network
-                        // Image.network(
-                        //   "https://media.istockphoto.com/id/1226883131/photo/human-figure-icon-graphic-as-user-login-button-on-white-keyboard.jpg?b=1&s=170667a&w=0&k=20&c=9jn8gBXXYJ08mQO7gUPn1oMslu1RlMDL_EDoNBNS1NE=",
-                        // ),
-                        Column(
-                          children: [
-                            //image from assets folder, edit pubspec.yaml to use local images
-                            Image.asset(
-                              "assets/forgot.png",
-                              height: 80,
-                              width: 100,
-                              // color: Colors.deepPurpleAccent,
-                            ),
-                            Text(
-                              "Forgot Password?",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w700,
-                                  decorationStyle: TextDecorationStyle.wavy),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 15),
-                        Container(
-                          height: 60,
-                          width: 170,
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              primary: Colors.deepPurple,
-                              // shadowColor: Colors.deepPurpleAccent,
-                              // shape: CircleBorder(
-                              //   side:
-                              // )
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(30),
-                              ),
-                            ),
-                            onPressed: () => {print("Login Attempted!")},
-                            child: Text(
-                              "Login",
-                              style: TextStyle(
-                                  fontSize: 25,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w400),
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: 20),
-                        Text(
-                          "OR",
-                          style: TextStyle(fontWeight: FontWeight.w900),
-                        ),
-                        SizedBox(height: 10),
-                        Text(
-                          "Continue with social media",
-                          style: TextStyle(fontWeight: FontWeight.w700),
-                        ),
-                      ],
-                    ),
+/*
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text("ChangeUI"),
+          backgroundColor: Colors.red,
+        ),
+        body: FirstScreen(),
+      ),
+    );
+  }
+}
+
+class FirstScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+        child: Container(
+      child: ElevatedButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => SecondScreen()),
+          );
+        },
+        child: Text("Navigate Now"),
+      ),
+    ));
+  }
+}
+
+class SecondScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      child: Center(
+          child: Container(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text("Welcome to second page!"),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: Text("Go Back"),
+          ),
+        ],
+      ))),
+    );
+  }
+}
+
+*/
+
+// import 'package:flutter/services.dart';
+/*
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatefulWidget {
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  var result = "";
+  var no1Controller = new TextEditingController();
+  var no2Controller = new TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        body: Center(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            child: Column(
+              // crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextField(
+                  maxLength: 10,
+                  //  obscureText: true,
+                  cursorColor: Colors.deepPurple[500],
+                  cursorWidth: 3,
+                  keyboardType: TextInputType.number,
+                  controller: no1Controller,
+                  decoration: InputDecoration(
+                    hintText: "Number - 1",
+                    filled: true,
+                    fillColor: Colors.deepOrange[50],
                   ),
                 ),
-              ),
-              SizedBox(height: 10),
-              Container(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                SizedBox(
+                  height: 30,
+                ),
+                TextField(
+                  controller: no2Controller,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                    hintText: "Number - 2",
+                    filled: true,
+                    fillColor: Colors.deepOrange[50],
+                  ),
+                ),
+                SizedBox(
+                  height: 25,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Container(
-                      height: 45,
-                      width: 150,
-                      //using fontAwesome package to display fontAwesomeIcons
-                      child: IconButton(
-                        icon: FaIcon(FontAwesomeIcons.facebook),
-                        iconSize: 50,
-                        color: HexColor("#3b5998"),
-                        onPressed: () {
-                          print("FavIconFacebook Login");
-                        },
+                    ElevatedButton(
+                      onPressed: () {
+                        var no1 = int.parse(no1Controller.text.toString());
+                        var no2 = int.parse(no2Controller.text.toString());
+
+                        var ans = no1 + no2;
+
+                        result = "Sum of $no1 and $no2 is $ans.";
+                        setState(() {});
+                      },
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.pink[600],
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                      ),
+                      child: Text(
+                        "Add",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w500,
+                            fontFamily: 'Questrial'),
                       ),
                     ),
-                    Container(
-                      height: 45,
-                      width: 150,
-                      child: IconButton(
-                          icon: FaIcon(FontAwesomeIcons.twitter),
-                          iconSize: 50,
-                          color: HexColor("#00acee"),
-                          onPressed: () {
-                            print("FavIconInsta Login");
-                          }),
-                    )
+                    SizedBox(
+                      width: 10,
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        var no1 = int.parse(no1Controller.text.toString());
+                        var no2 = int.parse(no2Controller.text.toString());
+
+                        var ans = no1 - no2;
+
+                        result = "Sum of $no1 and $no2 is $ans.";
+                        setState(() {});
+                      },
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.pink[600],
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                      ),
+                      child: Text(
+                        "Subtract",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w500,
+                            fontFamily: 'Questrial'),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
                   ],
                 ),
-              ),
-            ],
+                Text(
+                  result,
+                  style: TextStyle(
+                      fontSize: 40,
+                      fontWeight: FontWeight.w800,
+                      color: Colors.yellow[900]),
+                )
+              ],
+            ),
           ),
         ),
       ),
@@ -197,316 +281,164 @@ class MyApp extends StatelessWidget {
 }
 
 
+*/
+
+/*
 
 
+void main() {
+  runApp(MaterialApp(
+    theme: ThemeData(primarySwatch: Colors.blue),
+    home: MyHomeScreen(),
+  ));
+}
 
-/*    **********************EOF**************************      */
+
+class MyHomeScreen extends StatelessWidget {
 
 
-//Practice_Codes_For_Reference
+  // final currentTime =
+  //     DateFormat('hm').format(DateTime.now()); //hour:minute format
+  final currentHour = DateTime.now().hour;
+  final currentMinute = DateTime.now().minute;
+  final currentWeekday = DateFormat('E').format(DateTime.now());
+  final currentDay = DateFormat('d').format(DateTime.now());
+  final currentMonth = DateFormat('MMMM').format(DateTime.now());
 
-
-//  Container(
-
-//         padding: EdgeInsets.all(75),
-//         alignment: Alignment.topLeft,
-//         color: Colors.deepOrange,
-//         child: Column(
-//           mainAxisAlignment: MainAxisAlignment.start,
-//           children: [
-
-//             Text("Login",style: TextStyle(color: Colors.white,fontSize: 50,),) ,
-//             Text('Welcome Back',style: TextStyle(color: Colors.white,fontSize: 20,),)
-
-//              ]
-
-//          ) ,
-
-// //         ),
-//       ),
+  @override
+  Widget build(BuildContext context) {
+    // return Scaffold(
+//       appBar: AppBar(title: Text("Hello")),
 //     );
 //   }
 // }
 
-//BottomNavigationBar Practice
-// void main() => {runApp(MyApp())};
+    return Scaffold(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Expanded(
+            flex: 7,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  child: Container(
+                    height: 250,
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 100.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "$currentHour:$currentMinute",
+                            style: TextStyle(
+                                fontWeight: FontWeight.w800, fontSize: 70),
+                          ),
+                          Text(
+                            "$currentWeekday, $currentDay $currentMonth",
+                            style: TextStyle(
+                                fontWeight: FontWeight.w500, fontSize: 20),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 150),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                  child: TextField(
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.red[400],
+                      enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30),
+                          borderSide:
+                              BorderSide(color: Colors.redAccent, width: 2.5)),
+                      hintText: "Search",
+                      hintStyle: TextStyle(color: Colors.white, letterSpacing: 2.5),
+                    ),
+                  ),
+                ),  
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Container(
+                      height: 70,
+                      width: 70,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10.0),
+                          color: Colors.black),
+                    ),
+                    Container(
+                      height: 70,
+                      width: 70,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10.0),
+                          color: Colors.black),
+                    ),
+                    Container(
+                      height: 70,
+                      width: 70,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10.0),
+                          color: Colors.black),
+                    ),
+                    Container(
+                      height: 70,
+                      width: 70,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10.0),
+                          color: Colors.black),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          SizedBox(height: 10),
+          Expanded(
+            flex: 2,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Container(
+                  height: 70,
+                  width: 70,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10.0),
+                      color: Colors.black),
+                ),
+                Container(
+                  height: 70,
+                  width: 70,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10.0),
+                      color: Colors.black),
+                ),
+                Container(
+                  height: 70,
+                  width: 70,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10.0),
+                      color: Colors.black),
+                ),
+                Container(
+                  height: 70,
+                  width: 70,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10.0),
+                      color: Colors.black),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
 
-// class MyApp extends StatelessWidget {
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       title: "helloLoginApp",
-//       home: Scaffold(
-//         appBar: AppBar(
-//           backgroundColor: Colors.redAccent,
-//           title: Text(
-//             "LoginPage...",
-//             style: TextStyle(color: Colors.white),
-//           ),
-//         ),
-//         body: Text("BottomNavbar"),
-//         bottomNavigationBar: BottomNavigationBar(
-//           items: [
-//             BottomNavigationBarItem(
-//               label: "Home" ,
-//               icon: Icon(Icons.home, color: Colors.redAccent),
-//             ),
-//             BottomNavigationBarItem(
-//               label: "Settings",
-//               icon: Icon(Icons.settings),
-//             ),
-//             BottomNavigationBarItem(
-//               label: "Logout",
-//               icon: Icon(Icons.logout),
-//             ),
-//           ],
-//           selectedItemColor: Colors.orangeAccent,
-//           unselectedItemColor: Colors.deepPurpleAccent,
-//         ),
-//       ),
-//     );
-//   }
-// }
 
-//Column
-// import 'package:flutter/cupertino.dart';
-// import 'package:flutter/material.dart';
-
-// void main() {
-//   runApp(MyApp());
-// }
-
-// class MyApp extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       title: "MyMaterialApp",
-//       home: Scaffold(
-
-//         appBar: AppBar(
-//           title: Text(
-//             "GetSetFlyFact",
-//             style: TextStyle(fontSize: 20, color: Colors.purple),
-//           ),
-//         ),
-//         body: Column(
-//           children: [
-//             //block 1
-//             Expanded(
-//               child: Container(
-//                 child: Text(
-//                   "First",
-//                   style: TextStyle(color: Colors.white, fontSize: 30),
-//                 ),
-//                 padding: EdgeInsets.all(20),
-//                 color: Colors.pink,
-//                 alignment: Alignment.center,
-//                 height: 400,
-//               ),
-//             ),
-
-//             //block 2
-//             Expanded(
-//               child: Container(
-//                 child: Text(
-//                   "Second",
-//                   style: TextStyle(color: Colors.white, fontSize: 30),
-//                 ),
-//                 padding: EdgeInsets.all(20),
-//                 color: Colors.blue,
-//                 alignment: Alignment.center,
-//                 height: 700,
-//               ),
-//             ),
-//           ],
-//           // crossAxisAlignment: CrossAxisAlignment.stretch,
-//           // mainAxisAlignment: MainAxisAlignment.spaceAround,
-//           // textDirection: TextDirection.ltr,
-//           // verticalDirection: VerticalDirection.down,
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-//Row
-// import 'package:flutter/material.dart';
-// import 'package:flutter/cupertino.dart';
-
-// void main() => {runApp(MyApp())};
-
-// class MyApp extends StatelessWidget {
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       debugShowCheckedModeBanner: false,
-//       title: "MyAppIsReady",
-//       home: Scaffold(
-//         appBar: AppBar(
-//           title: Text("IAMAPPBAR",
-//               style: TextStyle(fontSize: 30, color: Colors.blue)),
-//         ),
-//         body: Padding(
-//           padding: const EdgeInsets.only(top: 10.0),
-//           child: Row(
-//             children: [
-//               Container(
-//                 child: Text(
-//                   "First",
-//                   style: TextStyle(fontSize: 30),
-//                 ),
-//                 color: Colors.blue,
-//                 height: 50,
-//                 width: 40,
-//               ),
-//               Container(
-//                 child: Text(
-//                   "Second",
-//                   style: TextStyle(fontSize: 30),
-//                 ),
-//                 color: Colors.blue,
-//                 height: 50,
-//                 width: 40,
-//               ),
-//               Container(
-//                 child: Text(
-//                   "Third",
-//                   style: TextStyle(fontSize: 30),
-//                 ),
-//                 color: Colors.blue,
-//                 height: 40,
-//                 width: 50,
-//               ),
-//             ],
-//             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//             crossAxisAlignment: CrossAxisAlignment.start,
-//             textDirection: TextDirection.ltr,
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-//Container
-// import 'package:flutter/cupertino.dart';
-// import 'package:flutter/material.dart';
-
-// void main() {
-//   runApp(MyApp());
-// }
-
-// class MyApp extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       title: "title",
-//       home: Scaffold(
-//         appBar: AppBar(
-//           title: Text("MyAppStarted!"),
-//         ),
-//         body: Center(
-//           child: Container(
-//             child: Padding(
-//               padding: const EdgeInsets.all(10.0),
-//               child: Text(
-//                 "MyTextToMani",
-//                 style: TextStyle(
-//                   fontSize: 20,
-//                   color: Colors.purple,
-//                 ),
-//               ),
-//             ),
-//             height: 300,
-//             width: 200,
-//             alignment: Alignment.center,
-//             // color: Colors.red,
-//             padding: EdgeInsets.symmetric(horizontal: 50, vertical: 40),
-//             decoration: BoxDecoration(
-//               border: Border.symmetric(
-//                 horizontal: BorderSide(
-//                   width: 10,
-//                   color: Colors.indigo,
-//                   style: BorderStyle.solid,
-//                 ),
-//                 vertical: BorderSide(
-//                   width: 30,
-//                   color: Colors.purple,
-//                   style: BorderStyle.solid,
-//                 ),
-//               ),
-//               // borderRadius: BorderRadius.all(
-//                 // Radius.circular(90),
-//               ),
-//             ),
-//           ),
-//         ),
-//     );
-//   }
-// }
-
-// import 'package:flutter/material.dart';
-
-// void main() {
-//   runApp(MyApp());
-// }
-
-// class MyApp extends StatelessWidget {
-//   // This widget is the root of your application.
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       title: 'Flutter Demo',
-//       theme: ThemeData(
-//         primarySwatch: Colors.blue,
-//       ),
-//       home: Scaffold(
-//         appBar: AppBar(
-//           title: Text("mySampleApp"),
-//         ),
-//         body: Center(
-//           child: Container(
-//             child: Text(
-//               "Aaryaveer",
-//               style: TextStyle(fontSize: 30, color: Colors.white),
-//             ),
-//             // color: Colors.orange,
-//             height: 200,
-//             width: 200,
-//             alignment: Alignment.center,
-//             // padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 30.0),
-//             // constraints: BoxConstraints(maxHeight: 200, maxWidth: 280),
-//             // transform: Matrix4.skewX(3.0),
-
-//             decoration: BoxDecoration(
-//               color: Colors.purple,
-//               border: Border.all(
-//                 color: Colors.green, width: 5, style: BorderStyle.solid,
-//                 // top: BorderSide(color:Colors.green, width: 5, style: BorderStyle.solid),
-//                 // bottom: BorderSide(color:Colors.orange, width: 10, style: BorderStyle.solid),
-//                 // left: BorderSide(color:Colors.redAccent, width: 3, style: BorderStyle.solid),
-//                 // right: BorderSide(color:Colors.brown, width: 8, style: BorderStyle.solid),
-//               ),
-//               // borderRadius: BorderRadius.all(
-//               //   Radius.circular(30),
-//               // ),
-//               boxShadow: [
-//                 BoxShadow(
-//                   color: Colors.orange,
-//                   blurRadius: 3.0,
-//                   spreadRadius: 7.0,
-//                   // offset: Offset(10.0, 10.0),
-//                 ),
-//               ],
-//               shape: BoxShape.rectangle,
-
-//               gradient: LinearGradient(
-//                 begin: Alignment.centerLeft,
-//                 end: Alignment.centerRight,
-//                 colors: [Colors.green, Colors.red, Colors.blue, Colors.purple],
-//               ),
-//             ),
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
+*/

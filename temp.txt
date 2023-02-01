@@ -1,0 +1,621 @@
+G-drive link : https://drive.google.com/drive/folders/1Y4-QsjjGf5RLOt88Hjegy7k6Jpdr6DXq?usp=share_link
+
+
+****GIT ADD new files to existing repo in new branch:****
+
+git init     									//initialize local repo
+git add .    									//add all files ot the repo
+git commit -m "Navigator_basic"							//commit files
+git branch -m day4								//branch name "day4" [it will create a new branch called day4, ensure you have made one in VSCode(bottomLeft corner)]
+git remote add origin https://github.com/AKR-2803/FlutterPractice.git		//add origin [existing GitHub repo]
+git push -u origin day4								//push files to origin
+
+
+
+
+1. Give Border to a text field =>     decoration: InputDecoration(
+					border: OutlineInputBorder(),
+				   )
+			           		OR
+				   decoration: InputDecoration(
+                                   	border: OutlineInputBorder(
+                    		   	borderSide: BorderSide(width: 5, color: Colors.redAccent,),),
+				   )
+
+For underline border : 		   border: UnderlineInputBorder(), <= *USE THIS FIRST*
+
+ref.: https://docs.flutter.dev/cookbook/forms/text-input
+
+
+****************************************************************
+
+
+2. Color BackgroundColor of ElevatedBtn : 	style: ElevatedButton.styleFrom(
+                    			primary: Colors.blueAccent,)
+
+ref.: https://androidride.com/elevated-button-color-flutter/
+
+
+****************************************************************
+
+
+3. How to Change Background Color, Size, Border Radius of Elevated Button in Flutter
+
+ref.: https://www.fluttercampus.com/guide/38/how-to-change-background-color-size-border-radius-of-elevated-button/
+
+
+Example (Preferable) : LoginButton
+
+ ElevatedButton(
+                        style: ElevatedButton.styleFrom(			//styling easily using elevated button ".styleFrom"
+                          minimumSize: Size(170, 60),				//(width, height) of button
+                          side: BorderSide(width: 3, color: Colors.black12),	//border
+                          primary: Colors.deepPurple,				//color of the button
+      			  )
+                          shape: RoundedRectangleBorder(			//border Radius
+                            borderRadius: BorderRadius.circular(30),		
+                          ),		
+                        ),
+
+                        onPressed: () {						//onPressed function for Login
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const RegisterPage()));
+                        },
+                        child: Text(						//childText
+                          "Login",
+                          style: TextStyle(
+                              fontSize: 25,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w400),
+                        ),
+                      ),
+
+
+
+
+
+Example: 
+
+ SizedBox(						//Wrap it around a SizedBox and style the SizedBox, like (height, width)
+              height: 50.0,
+              width: 130.0,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(				<= use ElevatedButton.styleFrom to style the button
+                  side: BorderSide(width: 3, color: Colors.black12),		<= give border to the button 
+                  primary: Colors.deepPurpleAccent,				<= primary : color of the button
+                  elevation: 3,	
+                  shape: RoundedRectangleBorder(				<= shape of the button (giving border radius)
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                ),
+                onPressed: () {},						<= onPressed() function
+                child: Text(							<= text of the button
+                  "Register",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                ),
+              ),
+            ),
+
+
+
+Resize a Button(ElevatedBtn, TextBtn, etc) => Wrap it around a Container and style the container, like (height, width)
+		
+	Example:  Container(       <------------wrap a container around the button-----<--------|
+                        height: 50,								|					
+                        width: 150,							              ^								
+                        decoration: BoxDecoration(						|
+                          borderRadius: BorderRadius.circular(10),				               |
+                          color: Colors.deepPurple,					 	^	
+                        ),									|
+                        child: ElevatedButton(			<-------- ELEVATEDBTN required to be styled => ReSize...				
+                          style: ElevatedButton.styleFrom(
+                            primary: Colors.deepPurple,
+                            shadowColor: Colors.deepPurpleAccent,
+                          ),
+                          onPressed: () => {print("Login Attempted!")},
+                          child: Text(
+                            "Login",
+                            style: TextStyle(
+                              fontSize: 25,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w400),
+                          ),
+                        ),
+                      ),
+  
+
+4. Border: circular, rounded for elevatedBtns or btns:(Keywords: ROUND BUTTONS, CIRCULAR BUTTONS)
+
+
+https://stackoverflow.com/questions/49991444/create-a-rounded-button-button-with-border-radius-in-flutter
+https://www.fluttercampus.com/guide/290/border-radius-circular-elevated-button/
+
+Example: 	child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            primary: Colors.deepPurple,
+
+                            shape: RoundedRectangleBorder(                                			<= StadiumBorder(),CircleBorder()[no parameters needed],
+												
+			    borderRadius: BorderRadius.circular(50),			<= RoundedRectangleBorder, BeveledRectangleBorder [takes borderRadius]
+                             
+                            ),
+                          ),
+
+
+****************************************************************
+
+5. Center the AppBar Title: => centerTitle : true,
+
+Example : home: Scaffold(
+        	appBar: AppBar(
+          		centerTitle: true,
+          		title: Text("Fun App",) 
+			)
+****************************************************************
+
+6. Give space between two Widgets:
+
+Example:	BoxSized(
+			height: 20,	
+		)
+
+****************************************************************
+
+7. Add backgound image, and/or control its opcatiy/transparency
+
+	Example: 	Container(
+                	decoration: BoxDecoration(          			// Use boxDecoration
+                  	   image: DecorationImage(				// Use DecorationImage
+                    		image: AssetImage("assets/login.png"),   	// provide image path from assests floder
+                    		fit: BoxFit.cover,				// fit property to fit the widget(BoxFit)
+                    		colorFilter: ColorFilter.mode(Colors.deepPurpleAccent.withOpacity(0.5),BlendMode.dstATop),
+				),
+                	), 
+
+
+
+****************************************************************
+
+						********NAVIGATOR********
+
+8. Navigator works as a stack [Navigator.push(), Navogator.pop()]
+
+ref. : https://www.geeksforgeeks.org/routes-and-navigator-in-flutter/
+       https://docs.flutter.dev/development/ui/navigation
+
+
+Example: explain the code:
+
+
+void main() {
+runApp(MaterialApp(
+	home: HomeRoute(),
+));
+}
+
+
+onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const SecondRoute()),
+              );
+            })
+
+This code is defining a callback function for a button press event in a Flutter app. When the button is pressed, 
+the Navigator class is used to navigate to a new route, specifically an instance of **MaterialPageRoute** that is 
+being built by a builder function which takes the context and returns an instance of SecondRoute. 
+The Navigator.push method is used to push this new route onto the navigation stack, which will cause
+ the new route to be displayed on the screen. The const keyword before SecondRoute() indicates that the same 
+instance of the route will be used every time the route is pushed.
+
+
+****************************************************************
+
+9. Using Fontawesome icons: 
+
+install => 	flutter pub add font_awesome_flutter
+
+import  => 	import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+
+use example =>  icon: FaIcon(FontAwesomeIcons.arrowLeft)
+
+
+****************************************************************
+
+10. Form Validation:
+
+Valid email regex: 
+
+example: TextFormField(
+                      decoration: InputDecoration(
+                        hintText: "Email",
+                        icon: Icon(Icons.email_outlined),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            width: 3.0,
+                            color: Colors.purpleAccent,
+                            style: BorderStyle.solid,
+                          ),
+                        ),
+                      ),
+                      validator: (value) {					// validator
+                        if (value.isEmpty) {					// check empty
+                          return "Email required";	
+                        } else if (!RegExp(r'\S+@\S+\.\S+').hasMatch(value)){	// regex for valid email 
+                          return "Please enter valid email";
+                        } 
+                        return null;
+                      },
+                    ),
+
+
+****************************************************************
+
+11. Drawer help(navigate) : 
+
+
+just write the onTap function as : 
+			
+Example:  
+			onTap(){
+			   Navigator.pop(context);	
+			}
+
+Drawer => ListView => ListTile
+
+ListTile: 	ListTile(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  leading: Icon(
+                    Icons.calendar_today_outlined,
+                    color: Colors.lime,
+                    size: 35.0,
+                  ),
+                  title: Text(
+                    "Invite".toUpperCase(),
+                    style: GoogleFonts.lato(
+                      fontSize: 20.0,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.black,
+                    ),
+                  ),	
+	
+*****Exception: Another exception was thrown: Navigator operation requested with a context that does not include a Navigator*****
+
+solution to the exception : define the materialApp like this :   
+
+ref.: https://stackoverflow.com/a/54489225/20956259
+
+	
+Solution:	  void main() {
+  				    runApp(MaterialApp(
+			           		 home: MyApp(),
+  				    ));
+				  }
+
+				class MyApp extends StatelessWidget {
+					
+				}
+
+****************************************************************
+
+12. Using Google fonts offline: 
+
+install font from https://fonts.google.com/
+
+add path in pubspec.yaml like this : 
+
+assets:
+    - assets/
+    - assets/fonts/
+
+fonts:
+   - family: Questrial
+     fonts:
+       - asset: assets/fonts/Questrial-Regular.ttf
+   - family: RockSalt
+     fonts:
+       - asset: assets/fonts/RockSalt-Regular.ttf
+
+
+=> Give fontFamily in material app like this to apply it to the entire app
+
+	void main() {
+ 	 runApp(
+ 	   MaterialApp(
+      		theme: ThemeData(
+        	fontFamily: 'Questrial',
+      		),
+      	  
+	   home: MyApp(),
+    		),
+  	);
+	}
+
+
+****************************************************************
+
+13. Change bottom Navigation Bar color (Wrap the bottomNavigationBar inside a **"THEME"**) like this :
+
+=> Example : 	
+
+  bottomNavigationBar: Theme(
+        data: Theme.of(context).copyWith(
+            canvasColor: Colors.blue[900],		//background color of the bottomNavigationBar
+            textTheme: TextTheme(
+              caption: TextStyle(color: Colors.black12),
+            )),
+        child: BottomNavigationBar()
+	
+
+****************************************************************
+
+14. Add a background image to the app
+
+Example: 
+
+body: Container(
+        constraints: BoxConstraints.expand(),			//expand the image
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/backGroundImage.jpg"),	//image path use AssetImage or NetworkImage
+            fit: BoxFit.cover,					//use BoxFit widget
+          ),
+        ),
+
+ __________________________________________
+
+adding opacity to the backgroundImage:
+
+colorFilter: new ColorFilter.mode(Colors.black.withOpacity(0.2), BlendMode.dstATop),  //use this
+
+Example: 
+
+ Container(
+        constraints: BoxConstraints.expand(),
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/backGroundImage.jpg"),
+            colorFilter: ColorFilter.mode(
+                Colors.black.withOpacity(0.7), BlendMode.dstATop),  //opacity
+            fit: BoxFit.cover,
+          ),
+        ),
+
+
+
+****************************************************************
+
+15. GridView in Flutter : Creates a scrollable, 2D array of widgets with a fixed number of tiles in the cross axis.
+
+Example: GridView.count(
+  		shrinkWrap: true,							
+  		crossAxisCount: 2,							//number of grid elements to be displayed in a row
+  		mainAxisSpacing: 40,
+  		crossAxisSpacing: 40,
+  		padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+ 		 children: [							//children
+    			myContainer,
+   
+  		],
+
+****************************************************************
+
+16. GridView Types: 
+
+i. GridView.count() : compulsory property : ***crossAxisCount*** : how many maximum grid elements along the main axis: 
+
+mandatory paramaters: crossAxisCount
+
+Example: 
+		
+ body: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: GridView.count(
+            crossAxisCount: 3,			//MANDATORY!
+            mainAxisSpacing: 10,
+            crossAxisSpacing: 15,
+            children: [
+              Container(color: myColors[0]),
+              Container(color: myColors[1]),
+              Container(color: myColors[2]),
+              Container(color: myColors[3]),
+              Container(color: myColors[4]),
+              Container(color: myColors[5]),
+              Container(color: myColors[6]),
+              Container(color: myColors[7]),
+            ],
+          ),
+        ),
+
+
+=> myColors is an array of predefined colors: 
+
+var myColors = [
+    Colors.pink,
+    Colors.orange,
+    Colors.purple,
+    Colors.lightGreen,
+    Colors.redAccent,
+    Colors.brown,
+    Colors.red,
+    Colors.green
+];
+
+_______________________________________________________
+
+ii. GridView.extent: ***maxCrossAxisExtent*** : max length of the crossAxis
+
+mandatory paramaters: maxCrossAxisExtent
+
+Example: 
+
+body: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: GridView.extent(
+            maxCrossAxisExtent: 100,		//MANDATORY!
+            mainAxisSpacing: 10,
+            crossAxisSpacing: 15,
+            children: [
+              Container(color: myColors[0]),
+              Container(color: myColors[1]),
+              Container(color: myColors[2]),
+              Container(color: myColors[3]),
+              Container(color: myColors[4]),
+              Container(color: myColors[5]),
+              Container(color: myColors[6]),
+              Container(color: myColors[7]),
+            ],
+          ),
+        ),
+      ),
+
+_______________________________________________________
+
+iii. GridView.builder : builds the grid according to the data provided or (example data fetched from an api) using context and index 
+
+MANDATORY paramaters: itemBuilder: (context, index){}, and gridDelegate : 
+
+
+gridDelegate has two options : =======>
+
+
+
+Option 1: SliverGridDelegateWithFixedCrossAxisCount : [!!!-->its NOT "SILVER" its ***SLIVER***] ***required: crossAxisCount: how many maximum elements in cross axis
+	  
+Example for 1:
+
+GridView.builder(
+              itemBuilder: (context, index) {
+                return Container(color: myColors[index]);
+              },
+              gridDelegate:
+                  SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 5),
+            )),
+
+_______________________________________________________
+
+
+Option 2: SliverGridDelegateWithMaxCrossAxisExtent : ***required : maxCrossAxisExtent: maximum extent of cross axis
+
+
+Example for 2: 
+
+GridView.builder(
+              itemBuilder: (context, index) {
+                return Container(color: myColors[index]);
+              },
+              gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent:50 )
+            )),
+
+
+****************************************************************
+
+17. Chrome error when flutter run is executed on chrome: 
+
+Failed to establish connection with the application instance in Chrome.
+This can happen if the websocket connection used by the web tooling is unable to correctly establish a connection, for example due to a    
+firewall.
+
+Solution :) run this => 		flutter run -d chrome --release
+
+
+****************************************************************
+
+18. DateTime format : using INTL package. 
+
+
+ ICU Name        		           Skeleton
+ --------                   			 --------
+ DAY                         		d
+ ABBR_WEEKDAY     	            	E	//ABBR : Abbreviation(Short form): Mon, Tue, Wed, Thu
+ WEEKDAY                      		EEEE	//full names: Monday, Tuesday, Wednesday...
+ ABBR_STANDALONE_MONTH        	LLL
+ STANDALONE_MONTH             	LLLL
+ NUM_MONTH                    		M
+ NUM_MONTH_DAY              	Md
+ NUM_MONTH_WEEKDAY_DAY        	MEd
+ ABBR_MONTH                   		MMM
+ ABBR_MONTH_DAY               	MMMd
+ ABBR_MONTH_WEEKDAY_DAY       	MMMEd
+ MONTH                        		MMMM
+ MONTH_DAY                    		MMMMd
+ MONTH_WEEKDAY_DAY            	MMMMEEEEd
+ ABBR_QUARTER                 		QQQ
+ QUARTER                      		QQQQ
+ YEAR                         		y
+ YEAR_NUM_MONTH               	yM
+ YEAR_NUM_MONTH_DAY                   yMd
+ YEAR_NUM_MONTH_WEEKDAY_DAY    yMEd
+ YEAR_ABBR_MONTH              	yMMM
+ YEAR_ABBR_MONTH_DAY          	yMMMd
+ YEAR_ABBR_MONTH_WEEKDAY_DAY   yMMMEd
+ YEAR_MONTH                   		yMMMM
+ YEAR_MONTH_DAY               	yMMMMd
+ YEAR_MONTH_WEEKDAY_DAY       	yMMMMEEEEd
+ YEAR_ABBR_QUARTER            	yQQQ
+ YEAR_QUARTER                 		yQQQQ
+ HOUR24                       		H
+ HOUR24_MINUTE                		Hm
+ HOUR24_MINUTE_SECOND         	Hms
+ HOUR                         		j
+ HOUR_MINUTE                  		jm
+ HOUR_MINUTE_SECOND           	jms
+ HOUR_MINUTE_GENERIC_TZ       	jmv   (not yet implemented)
+ HOUR_MINUTE_TZ               	jmz   (not yet implemented)
+ HOUR_GENERIC_TZ              	jv    (not yet implemented)
+ HOUR_TZ                      		jz    (not yet implemented)
+ MINUTE                       		m
+ MINUTE_SECOND         	       	ms
+ SECOND             			s
+
+__________________________________
+
+Examples Using the US Locale:
+
+ Pattern                           Result
+ ----------------                  -------
+ DateFormat.yMd()                 -> 7/10/1996
+ DateFormat('yMd')                -> 7/10/1996
+ DateFormat.yMMMMd('en_US')       -> July 10, 1996
+ DateFormat.jm()                  -> 5:08 PM
+ DateFormat.yMd().add_jm()        -> 7/10/1996 5:08 PM
+ DateFormat.Hm()                  -> 17:08 // force 24 hour time	
+
+__________________________________
+
+Example:  TO USE
+
+  final currentHour = DateTime.now().hour; 	//already provided in flutter
+  final currentMinute = DateTime.now().minute;        //already provided in flutter
+  final currentWeekday = DateFormat('E').format(DateTime.now());  	//provided by INTL package
+  final currentDay = DateFormat('d').format(DateTime.now());		//provided by INTL package
+  final currentMonth = DateFormat('MMMM').format(DateTime.now()); 	//provided by INTL package
+
+****************************************************************
+
+
+****************************************************************
+
+
+
+
+
+****************************************************************
+
+
+
+
+
+****************************************************************		
+
+
+
+
+
+                  
