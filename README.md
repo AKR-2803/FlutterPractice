@@ -10,10 +10,15 @@
 ### **IMP** : You NEED SHA-1 Key for SignInWithGoogle to work!
 
 To find the key :
--> go to android folder in terminal (cd android)
--> run this command  :  [ ./gradlew signingReport ]
+From your directory folder fire these commands in the terminal : 
+```
+cd android
+./gradlew signingReport 
+```
+
 -> more info [here](https://developers.google.com/android/guides/client-auth?authuser=0&hl=en#using_gradles_signing_report)
-You will get output something like this :
+
+Console will look something like this : 
 
 ```
 > Task :google_sign_in_android:signingReport
