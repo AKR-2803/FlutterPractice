@@ -1,22 +1,3 @@
-//Login Page created on 20-01-2023
-//abcdefghikjklmnioppqtrstuvwxuyzz
-//avabcdefghijklmnopqtrstuvwxuyz
-//avabcdefghoijklmnopqrstucvwxyz
-//avabcddefghijkllmnopqtrstuvwxyz
-//avabcdrefghijklmnopqrstucvwxyz
-//abccdefghijklmnopqrstuvwxuuyz
-//abcdefghijklmnolpqrdsrtuvwxyz
-//abcdfdefghikjklmnopqrstuvwxyz
-//abcdefghijklmnopqrstuvwxyz
-//abcdefghijklmnopqrstuvwxzyz
-//abcdefghijklmnopqrstuvwxzyz
-//abcdefghijklmnopqrstuvwxyz
-//abcdefghjijklmnopqurstuvwxyz
-//abcdefghijklm,mnopqrstuxvwxyz
-//abcdefghijklmnopqrstucwvwsxyaz
-//abcdefghijklmnopqrstucvwxy;az
-//abcdefghijklmnopqrst uvwxyz
-
 //C:\21.2  D:\590
 
 import 'dart:convert';
