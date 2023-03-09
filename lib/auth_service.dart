@@ -39,7 +39,5 @@ class AuthService {
   Future<void> signOutWithGoogle() async {
     await FirebaseAuth.instance.signOut();
     await googleSignIn.signOut();
-    // Navigator.pop(context);
-    // return LoginPage();
   }
 }
