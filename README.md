@@ -47,6 +47,7 @@ You can add these lines under dependencies inside the "pubspec.yaml" file (ensur
 dependencies:
     firebase_auth: ^<your-compatible-version>
     google_sign_in: ^5.4.4
+    firebase_core: ^2.5.0
 ```
 
 #### Ensure Compatibility : 
@@ -58,15 +59,27 @@ How to Check compatibility: check compatibility in "Versions" section of the res
 Lastly, 
 You will need to import following packages:
 
-Add these lines in your main.dart
+Import the packages like this:  
 
 ```
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart'; 
 ```
 
 
 ### Files and Code
+
+Ensure initializing app using firebase with an async main function, like this in [main.dart](https://github.com/AKR-2803/FlutterPractice/blob/day7_firebase/lib/main.dart)
+
+```
+//make sure to add firebase_core package
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(const MyApp());
+}
+```
 
 1. [auth_service.dart](https://github.com/AKR-2803/FlutterPractice/blob/day7_firebase/lib/auth_service.dart) [This file will handle signIn and signOut methods].
 
@@ -123,6 +136,7 @@ class AuthService {
 
 
 2.  [login_page.dart](https://github.com/AKR-2803/FlutterPractice/blob/day7_firebase/lib/pages/login_page.dart)  (Make a simple login page with a button for google sign in)
+
 [UI tips:  You may use IconButton, and provide google icon from FontAwesomeIcons. Alternatively, you may also provide a child :icon inside a conatiner and wrap it aroung a GestureDetector to enable the onTap() function]
 
 
@@ -131,15 +145,6 @@ Display : username and email of the user, with a SignOut button.
 
 4. [main.dart](https://github.com/AKR-2803/FlutterPractice/blob/day7_firebase/lib/main.dart) 
 
-Ensure initializing app using firebase with an async main function, like this :
-
-```
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  runApp(const MyApp());
-}
-```
 
 Other files inside components folder and utils are just for the UI of login page.
 
@@ -148,14 +153,19 @@ Other files inside components folder and utils are just for the UI of login page
 ## Running this project in your device: 
 
 -> Download the zip file from [here](https://github.com/AKR-2803/FlutterPractice/tree/day7_firebase).
+
 -> Change the google-services.json to your file from the firebase.
+
 -> Change the versions of packages inside pubspec.yaml(if needed).
+
 -> You are good to go.
 
 
 -> In case you are facing some other errors, try to resolve them by searching them, trust me you'll learn a lot more solving those errors than actually running the code. 
+
 -> You can also refer to a YouTube tutorial : just make sure its not too old, else some features might not work, find recent tutorials.
--> If you still need any help, ferel free to comment or contact me.
+
+-> If you still need any help, feel free to comment or contact me.
 
 
 ALL THE BEST :)
