@@ -38,21 +38,33 @@ Moreover, make sure inside [Authentication->Sign-in method] Google Sign in metho
 
 
 ### Packages
+
+#### Adding Packages: 
+
+You can add these lines under dependencies inside the "pubspec.yaml" file (ensure proper indentation!) 
+```
+//<your-compatible-version> is the version of your package.
+dependencies:
+    firebase_auth: ^<your-compatible-version>
+    google_sign_in: ^5.4.4
+```
+
+#### Ensure Compatibility : 
+Use package version which is compatible to your dart SDK version.
+
+How to Check compatibility: check compatibility in "Versions" section of the respective dart package, For example [google_sign_in](https://pub.dev/packages/google_sign_in/versions) package]. 
+
+
 Lastly, 
 You will need to import following packages:
+
+Add these lines in your main.dart
 
 ```
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart'; 
 ```
 
-You can add these lines under dependencies inside the "pubspec.yaml" file  (ensure proper indentation) [choose the versions according to compatible versions of dart SDK you have, you can check compatibility in "Versions" section of the respective dart package, For example [google_sign_in](https://pub.dev/packages/google_sign_in/versions) package]
-
-```
-dependencies:
-    firebase_auth: ^4.2.6
-    google_sign_in: ^5.4.4
-```
 
 ### Files and Code
 
