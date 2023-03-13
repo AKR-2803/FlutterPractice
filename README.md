@@ -15,7 +15,22 @@ ___
 ## GitHub Readme markdown tips :
 
 - ### Image : Drag and drop image in readme, copy the URL, paste here : 
-#### ```<kbd><img src="url-here" width="250" height="550"></kbd>```
-#### ```<kbd>``` is used for image border.
+  #### ```<kbd><img src="url-here" width="250" height="550"></kbd>``` 
+  #### ```<kbd>``` is used for image border.
 - ### Separator Lines : use 3 underscores : ```___```
 - ### HyperLink : ```[text-here](link-here)``` 
+- ### Colourful Code \```mention language name here   ......\```
+  Example : 
+  
+ ```
+ class A{
+ String name;
+ A({required this.name});
+ }
+ ```
+```dart
+ class A{
+ String name;
+ A({required this.name});
+ }
+ ```
