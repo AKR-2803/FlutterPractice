@@ -10,6 +10,7 @@ VSCode useful shortcuts :
 - ## [Ctrl + P] : Open File quickly
 - ## [Ctrl + L] : Select current Line
 - ## ** [Ctrl + Space] : View possible paramters
+- ## [git add "file path"] : to add file path with directory names containing spaces
 
 ___
 ## GitHub Readme markdown tips :
